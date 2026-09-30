@@ -13,8 +13,19 @@
     return { container, viewer };
   }
 
-  function getScale(settings) {
-    return Math.pow(0.5, settings.nativeLevels - 1 - settings.level);
+  function getScale(settings, holderInner) {
+    const imageWidth = Number(settings.width);
+    const displayedWidth = holderInner.offsetWidth;
+
+    if (imageWidth > 0 && displayedWidth > 0) {
+      return displayedWidth / imageWidth;
+    }
+
+    const nativeLevels = Number(settings.nativeLevels);
+    const level = Number(settings.level);
+    const levelScale = Math.pow(0.5, nativeLevels - 1 - level);
+
+    return Number.isFinite(levelScale) && levelScale > 0 ? levelScale : 1;
   }
 
   function getTransformOrigin(element) {
@@ -24,9 +35,13 @@
 
     return origin.slice(0, 2).map((value, index) => {
       if (value.endsWith("%")) {
-        return parseFloat(value) / 100 * (index === 0 ? width : height);
+        const percentage = parseFloat(value);
+        if (Number.isFinite(percentage)) {
+          return percentage / 100 * (index === 0 ? width : height);
+        }
       }
-      return parseFloat(value);
+      const pixels = parseFloat(value);
+      return Number.isFinite(pixels) ? pixels : (index === 0 ? width / 2 : height / 2);
     });
   }
 
@@ -38,9 +53,13 @@
     const holder = settings.holder[0];
     const holderInner = settings.holderInner[0];
     const transform = getComputedStyle(holderInner).transform;
-    const matrix = new DOMMatrix(transform === "none" ? undefined : transform);
+    let matrix = new DOMMatrix(transform === "none" ? undefined : transform);
+    const matrixValues = [matrix.a, matrix.b, matrix.c, matrix.d, matrix.e, matrix.f];
+    if (!matrixValues.every(Number.isFinite)) {
+      matrix = new DOMMatrix();
+    }
     const origin = getTransformOrigin(holderInner);
-    const scale = getScale(settings);
+    const scale = getScale(settings, holderInner);
     const holderStyle = getComputedStyle(holder);
     const holderInnerStyle = getComputedStyle(holderInner);
     const baseX = (parseFloat(holderStyle.left) || 0) + (parseFloat(holderInnerStyle.left) || 0);
@@ -112,6 +131,7 @@
     const page = Number(document.querySelector(".page-select option:checked")?.textContent?.trim()) || 1;
     const state = JSON.stringify({ viewport, degree, page });
     if (state === lastState) return;
+
     lastState = state;
 
     window.postMessage({ type: "ARCHION_VIEW_CHANGED", viewport, page }, "*");
