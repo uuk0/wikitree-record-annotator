@@ -1,7 +1,7 @@
 # WikiTree Record Annotator
 <img src="icons/icon128.png" align="left" width="128" height="128" style="margin-right: 15px;">
 
-This Chrome/Chromium browser extension overlays WikiTree-linked annotations directly onto online historical record images. It currently supports records hosted by the [Swedish National Archives (Riksarkivet)](https://sok.riksarkivet.se/) and [Matricula Online](https://data.matricula-online.eu/en/), but is designed to be expandable to other archive sites. Annotations are stored in a shared annotation database hosted on WikiTree+.<br clear="left"/>
+This Chrome/Chromium browser extension overlays WikiTree-linked annotations directly onto online historical record images. It currently supports records hosted by the [Swedish National Archives (Riksarkivet)](https://sok.riksarkivet.se/), [Matricula Online](https://data.matricula-online.eu/en/), and [ARCHION](https://www.archion.de/), but is designed to be expandable to other archive sites. Annotations are stored in a shared annotation database hosted on WikiTree+.<br clear="left"/>
 
 ## Features
 Annotations appear as highlighted frames over the record image. Their size and position are tied to image coordinates, so they remain correctly positioned during zooming and panning. Hovering the mouse over a box displays information about the linked WikiTree profile, and an optional note (see Lena Persdotter in the screenshot), and clicking on the box will open the profile in a new tab. A toolbar enables the user to draw new annotations, select existing annotations (to edit or delete), and toggle between hiding or showing all annotations. 
@@ -30,7 +30,7 @@ The extension currently requires manual installation and is not yet published in
 6. Select the extracted extension folder
 
 ## Current limitations
-- Currently supports only Riksarkivet and Matricula Online
+- Currently supports only Riksarkivet, Matricula Online, and ARCHION
 - Chrome/Chromium-based browsers only
 - Mobile (touchscreen) support is experimental
 

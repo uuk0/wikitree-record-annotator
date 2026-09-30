@@ -35,6 +35,7 @@
         "https://www.wikitree.com/index.php?title=*-*"
       ],
       "js": [
+        "src/sites/archion.js",
         "src/sites/riksarkivet.js", 
         "src/sites/matricula.js",
         "src/wtplus.js",
@@ -68,6 +69,20 @@
         "src/person.js",
         "src/content.js" 
       ] 
+    },
+    {
+      "matches": ["https://archion.de/*", "https://www.archion.de/*"],
+      "js": [
+        "src/sites/archion.js",
+        "src/theme.js",
+        "src/tools.js",
+        "src/wtplus.js",
+        "src/annotations.js",
+        "src/overlay.js",
+        "src/ui.js",
+        "src/person.js",
+        "src/content.js" 
+      ]
     }
   ],
 
@@ -90,6 +105,15 @@
     },
     {
       "resources": [
+        "src/sites/archion-page.js"
+      ],
+      "matches": [
+        "https://archion.de/*",
+        "https://www.archion.de/*"
+      ]
+    },
+    {
+      "resources": [
         "src/background/suggestions.html",
         "src/background/suggestions.js"
       ],
@@ -104,7 +128,9 @@
       "matches": [
         "https://www.wikitree.com/*",
         "https://sok.riksarkivet.se/*",
-        "https://data.matricula-online.eu/*"
+        "https://data.matricula-online.eu/*",
+        "https://archion.de/*",
+        "https://www.archion.de/*"
       ]
     }
   ]
