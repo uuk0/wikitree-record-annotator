@@ -3,6 +3,7 @@
 
   let attachedViewer = null;
   let lastState = "";
+  let lastAnimationState = null;
 
   function getViewer() {
     const container = document.querySelector(".zoom-container");
@@ -122,6 +123,15 @@
   function sendState() {
     const context = getContext();
     if (!context) return;
+
+    const animationActive = Boolean(context.settings.inAction);
+    if (animationActive !== lastAnimationState) {
+      lastAnimationState = animationActive;
+      window.postMessage({
+        type: "ARCHION_ZOOM_ANIMATION",
+        active: animationActive
+      }, "*");
+    }
 
     const viewport = getCurrentViewport(context);
     const degree = context.settings.degree;

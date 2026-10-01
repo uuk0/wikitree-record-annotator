@@ -46,6 +46,12 @@
     return _visible;
   }
 
+  function setAnimationHidden(hidden) {
+    const visibility = hidden ? "hidden" : "";
+    _annotationLayer.style.visibility = visibility;
+    _overlay.style.visibility = visibility;
+  }
+
 
   let _ignoreClicksUntil = 0;
 
@@ -418,6 +424,7 @@
     attachEvents,
     setVisible,
     isVisible,
+    setAnimationHidden,
     renderAnnotations,
     setDrawingState,
     updateSelectionStyles

@@ -121,7 +121,14 @@
 
   function initializeViewportTracking() {
     window.addEventListener("message", event => {
-      if (event.source !== window || event.data?.type !== "ARCHION_VIEW_CHANGED") return;
+      if (event.source !== window) return;
+
+      if (event.data?.type === "ARCHION_ZOOM_ANIMATION") {
+        overlay.setAnimationHidden(event.data.active);
+        return;
+      }
+
+      if (event.data?.type !== "ARCHION_VIEW_CHANGED") return;
 
       currentPage = event.data.page;
       const container = getViewerContainer();
