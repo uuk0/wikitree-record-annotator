@@ -139,8 +139,8 @@
   }
 
   function attach(viewer) {
-    if (viewer === attachedViewer) return;
-    attachedViewer = viewer;
+    if (viewer.container === attachedViewer) return;
+    attachedViewer = viewer.container;
 
     ["mousedown", "mouseup", "wheel", "touchstart", "touchend"].forEach(type => {
       viewer.container.removeEventListener(type, eventListener, { passive: true });
