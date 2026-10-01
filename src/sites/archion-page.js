@@ -116,9 +116,6 @@
     const width = Math.ceil(context.container.clientWidth / scale);
     const height = Math.ceil(context.container.clientHeight / scale);
 
-    if (x < 0) x = 0;
-    if (y < 0) y = 0;
-
     return { x, y, w: width, h: height };
   }
 
@@ -137,12 +134,17 @@
     window.postMessage({ type: "ARCHION_VIEW_CHANGED", viewport, page }, "*");
   }
 
+  function eventListener() {
+    requestAnimationFrame(sendState);
+  }
+
   function attach(viewer) {
     if (viewer === attachedViewer) return;
     attachedViewer = viewer;
 
     ["mousedown", "mouseup", "wheel", "touchstart", "touchend"].forEach(type => {
-      viewer.container.addEventListener(type, () => requestAnimationFrame(sendState), { passive: true });
+      viewer.container.removeEventListener(type, eventListener, { passive: true });
+      viewer.container.addEventListener(type, eventListener, { passive: true });
     });
     new MutationObserver(() => requestAnimationFrame(sendState)).observe(viewer.container, {
       childList: true,
