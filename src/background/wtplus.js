@@ -54,7 +54,7 @@ export async function getFramesByWtId(site, wtId) {
 }
 
 async function _wtplusImageFramesGet(params) {
-  const url = new URL("http://127.0.0.1:5000/function/wtImageFramesGet/WT_Annotator.json");
+  const url = new URL("https://plus.wikitree.com/function/wtImageFramesGet/WT_Annotator.json");
 
   Object.entries(params).forEach(([k, v]) => {
     if (v !== undefined && v !== null) {
@@ -71,7 +71,7 @@ async function _wtplusImageFramesGet(params) {
 
 export async function addFrame(site, book, page, info, wikitreeid, frame) {
   try {
-    const url = new URL("http://127.0.0.1:5000/function/wtImageFramesAdd/WT_Annotator.json");
+    const url = new URL("https://plus.wikitree.com/function/wtImageFramesAdd/WT_Annotator.json");
 
     const form = new URLSearchParams();
     form.append("site", site);
@@ -106,7 +106,7 @@ export async function addFrame(site, book, page, info, wikitreeid, frame) {
 
 export async function deleteFrame(site, book, page, wtId, frameId) {
   try {
-    const url = new URL("http://127.0.0.1:5000/function/wtImageFramesDelete/WT_Annotator.json");
+    const url = new URL("https://plus.wikitree.com/function/wtImageFramesDelete/WT_Annotator.json");
 
     const form = new URLSearchParams();
     form.append("site", site);

@@ -3,6 +3,7 @@
 
   let attachedMap = null;
   let lastState = "";
+  let stateFrameRequested = false;
 
   function getMap() {
     return window.tx_dlf_viewer?.map || null;
@@ -66,11 +67,25 @@
     window.postMessage({ type: "DFG_VIEW_CHANGED" }, "*");
   }
 
+  function scheduleState() {
+    if (stateFrameRequested) return;
+    stateFrameRequested = true;
+    requestAnimationFrame(() => {
+      stateFrameRequested = false;
+      sendState();
+    });
+  }
+
   function attachMap(map) {
     if (map === attachedMap) return;
     attachedMap = map;
-    map.on?.("moveend", sendState);
-    map.on?.("change:size", sendState);
+    map.on?.("postrender", scheduleState);
+    map.on?.("pointerdrag", scheduleState);
+    map.on?.("moveend", scheduleState);
+    map.on?.("change:size", scheduleState);
+    map.getView?.().on?.("change:center", scheduleState);
+    map.getView?.().on?.("change:resolution", scheduleState);
+    map.getView?.().on?.("change:rotation", scheduleState);
     sendState();
   }
 
