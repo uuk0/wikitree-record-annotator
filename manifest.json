@@ -13,7 +13,7 @@
   "permissions": ["storage"],
   "host_permissions": [
     "https://api.wikitree.com/*",
-    "https://plus.wikitree.com/*"
+    "http://127.0.0.1:5000/*"
   ],
 
   "icons": {
@@ -36,6 +36,7 @@
       ],
       "js": [
         "src/sites/archion.js",
+        "src/sites/dfg-viewer.js",
         "src/sites/riksarkivet.js", 
         "src/sites/matricula.js",
         "src/wtplus.js",
@@ -83,6 +84,20 @@
         "src/person.js",
         "src/content.js" 
       ]
+    },
+    {
+      "matches": ["https://dfg-viewer.de/show*", "https://www.dfg-viewer.de/show*"],
+      "js": [
+        "src/sites/dfg-viewer.js",
+        "src/theme.js",
+        "src/tools.js",
+        "src/wtplus.js",
+        "src/annotations.js",
+        "src/overlay.js",
+        "src/ui.js",
+        "src/person.js",
+        "src/content.js"
+      ]
     }
   ],
 
@@ -110,6 +125,15 @@
       "matches": [
         "https://archion.de/*",
         "https://www.archion.de/*"
+      ]
+    },
+    {
+      "resources": [
+        "src/sites/dfg-viewer-page.js"
+      ],
+      "matches": [
+        "https://dfg-viewer.de/*",
+        "https://www.dfg-viewer.de/*"
       ]
     },
     {
